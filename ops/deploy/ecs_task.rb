@@ -1,0 +1,3 @@
+class EcsTask
+
+end
