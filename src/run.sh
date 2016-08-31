@@ -10,4 +10,5 @@ cleanup() {
 trap cleanup EXIT
 cleanup
 
-docker-compose -p $COMPOSE_PROJECT up
+BUILD_NUMBER=$BUILD_NUMBER
+ENV_NAME=local docker-compose -p $COMPOSE_PROJECT up --build
