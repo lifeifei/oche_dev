@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  oche-web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    image: oche_web
+    container_name: oche_web
+    ports:
+      - "8099:80"
+    external_links:
+      - oche-app:app
+
+  oche-app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    image: oche_app
+    container_name: oche_app
+    ports:
+      - "8080:8080"
