@@ -5,25 +5,20 @@
   :maximum_percent: 100
   :minimum_healthy_percent: 50
   :desired_count: 2
-  :target_group_name: 'lifei-alb-tg'
 
 :default_task_definition: &default_task_definition
-  :name: 'lifei-task'
+  :name: 'lifei-test-task'
   :essential_container_memory: 200
   :app_container_memory: 300
 
 :training:
   <<: *default
-  :cluster_name: 'lifei'
-  :service_name: 'lifei-service'
-  :ecs_service_role: 'ecs-role-lifei-test'
+  :cluster_name: 'lifei-test'
+  :service_name: 'lifei-test-service'
+  :ecs_service_role: 'ecs-role-lifei-test-test'
   :maximum_percent: 100
   :minimum_healthy_percent: 0
   :desired_count: 1
-  :target_group_name: 'lifei-alb-tg'
+  :target_group_name: 'lifei-test-alb-tg'
   :task_definition:
     <<: *default_task_definition
-
-
-
-

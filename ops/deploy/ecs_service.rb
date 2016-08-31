@@ -6,7 +6,7 @@ class EcsService
 
   def initialize(env=:training)
     @ecs_client = Aws::ECS::Client.new
-    @options = YAML.load_file('config/training.yml')[env]
+    @options = YAML.load_file('config.yml')[env]
   end
 
   def deploy
@@ -19,7 +19,9 @@ class EcsService
   end
 
   def create_service
-    service_settings.merge({
+    create_service_settings = service_settings.merge({
+      service_name: @options[:service_name],
+      role: @options[:ecs_service_role],
       load_balancers: [
         {
           target_group_arn: find_target_group_arn_by_name,
@@ -28,11 +30,11 @@ class EcsService
         }
       ]
     })
-    @ecs_client.create_service(service_settings)
+    @ecs_client.create_service(create_service_settings)
   end
 
   def update_service
-    @ecs_client.update_service(service_settings)
+    @ecs_client.update_service(service_settings.merge(service: @options[:service_name]))
   end
 
   def register_task_definition
@@ -55,7 +57,6 @@ class EcsService
   def service_settings
     {
       cluster: @options[:cluster_name],
-      service: @options[:service_name],
       task_definition: @options[:task_definition][:name],
       desired_count: @options[:desired_count],
       deployment_configuration: {

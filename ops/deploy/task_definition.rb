@@ -1,7 +1,7 @@
 class TaskDefinition
   def create_task_definition(options)
     {
-      family: 'lifei-task',
+      family: options[:task_definition][:name],
       container_definitions: [{
         memory: options[:task_definition][:essential_container_memory],
         port_mappings: [
