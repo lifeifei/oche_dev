@@ -14,11 +14,28 @@
 :training:
   <<: *default
   :cluster_name: 'lifei-test'
-  :service_name: 'lifei-test-service'
+  :service_name: 'lifei-test-service1'
   :ecs_service_role: 'ecs-role-lifei-test-test'
   :maximum_percent: 100
   :minimum_healthy_percent: 0
   :desired_count: 1
   :target_group_name: 'lifei-test-alb-tg'
+  :alb_name: 'lifei-test-alb'
   :task_definition:
     <<: *default_task_definition
+    :env_name: training
+
+:prod:
+  <<: *default
+  :cluster_name: 'oche-prod'
+  :service_name: 'oche-prod-service'
+  :ecs_service_role: 'ecs-role-oche-prod-prod'
+  :desired_count: 2
+  :target_group_name: 'oche-prod-alb-tg'
+  :alb_name: 'oche-prod-alb'
+  :task_definition:
+    <<: *default_task_definition
+    :name: 'oche-prod-task'
+    :essential_container_memory: 200
+    :app_container_memory: 500
+    :env_name: prod

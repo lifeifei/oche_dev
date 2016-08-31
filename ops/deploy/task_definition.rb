@@ -27,7 +27,10 @@ class TaskDefinition
         ],
         essential: false,
         name: 'app',
-        image: 'lifeizhou/oche_app'
+        image: 'lifeizhou/oche_app',
+        environment: [
+          { name: 'envName', value: options[:task_definition][:env_name] }
+        ]
       }]
     }
   end

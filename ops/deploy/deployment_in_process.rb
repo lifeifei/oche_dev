@@ -1,0 +1,2 @@
+class DeploymentInProcess < StandardError
+end

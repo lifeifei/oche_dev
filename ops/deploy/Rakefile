@@ -1,7 +1,13 @@
 require_relative './ecs_service'
 
 namespace :service do
-  task :deploy do
-    EcsService.new.deploy
+  desc 'deploy to environment with specified image version. eg bundle exec rake service:deploy[training,1]'
+  task :deploy, [:env, :version] do |_, args|
+    EcsService.new(args[:env]||'training', args[:version] || 1).deploy
   end
+
+  task :verify do
+    EcsService.new('training', 1).verify_deployed
+  end
+
 end
