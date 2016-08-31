@@ -4,7 +4,7 @@ require_relative './task_definition'
 require_relative './verifier'
 require_relative './deployment_in_process'
 require 'retriable'
-require 'rest-client'
+require 'net/http'
 
 class EcsService
 
@@ -33,9 +33,9 @@ class EcsService
   def verify_deployed
     resp = elb_client.describe_load_balancers(names: [@options[:alb_name]])
     dns = resp.load_balancers.first.dns_name
-    resp = RestClient.get("http://#{dns}/app/oche/result")
-    puts JSON.parse(resp.body).inspect
-    puts "========== deployment is successful"
+    resp = Net::HTTP.get(dns, '/app/oche/result')
+    puts JSON.parse(resp).inspect
+    puts '========== deployment is successful'
   end
 
   def deploy_finish?(task_definition_arn)
