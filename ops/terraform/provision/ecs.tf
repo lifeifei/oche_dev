@@ -1,6 +1,5 @@
 module "stack" {
-//  source      = "github.com/lifeifei/stack"
-  source      = "/Users/lifei.zhou/workspace/stack"
+  source      = "github.com/lifeifei/stack"
   environment = "test"
   key_name    = "lifei-dev"
   name        = "lifei"

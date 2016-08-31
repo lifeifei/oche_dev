@@ -9,8 +9,7 @@ variable "dns_name" {
 }
 
 module "lifeielb" {
-//  source          = "github.com/lifeifei/stack//elb"
-  source          = "/Users/lifei.zhou/workspace/stack/elb"
+  source          = "github.com/lifeifei/stack//elb"
   name            = "${var.task_name}"
   port            = 80
   protocol        = "HTTP"

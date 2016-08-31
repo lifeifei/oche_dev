@@ -8,8 +8,7 @@ variable "alb_target_group_name" {
 }
 
 module "service_alb" {
-//  source          = "github.com/lifeifei/stack//alb"
-  source          = "/Users/lifei.zhou/workspace/stack/alb"
+  source          = "github.com/lifeifei/stack//alb"
   name            = "${var.alb_name}"
   target_group_name = "${var.alb_target_group_name}"
   port            = 80
