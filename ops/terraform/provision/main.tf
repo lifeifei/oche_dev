@@ -1,5 +1,5 @@
-module "stack" {
-  source      = "github.com/lifeifei/stack"
+module "oche" {
+  source      = "../modules/oche"
   environment = "test"
   key_name    = "lifei-dev"
   name        = "lifei"
@@ -9,5 +9,4 @@ module "stack" {
   ecs_instance_ebs_optimized = false
   ecs_desired_capacity = 1
   ecs_min_size = 1
-  target_group_arns = "${module.service_alb.target_group_arn}"
 }
