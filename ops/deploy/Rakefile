@@ -1,19 +1,7 @@
 require_relative './ecs_service'
 
 namespace :service do
-  task :create_task do
-    EcsService.new.create_task_definition
-  end
-
-  task :create_service do
-    EcsService.new.create_service
-  end
-
-  task :update_service do
-    EcsService.new.update_service
-  end
-
-  task :target_group do
-    EcsService.new.attach_target_group
+  task :deploy do
+    EcsService.new.deploy
   end
 end
