@@ -1,4 +1,4 @@
-require_relative '../deploy/ecs_service'
+require_relative './ecs_service'
 
 namespace :service do
   task :create_task do

@@ -31,11 +31,11 @@ class EcsService
           container_port: 80,
         },
       ],
-      desired_count: 2, # required
+      desired_count: 1, # required
       role: 'ecs-role-lifei-test',
       deployment_configuration: {
-        maximum_percent: 200,
-        minimum_healthy_percent: 100,
+        maximum_percent: 100,
+        minimum_healthy_percent: 0,
       }
     })
   end
@@ -65,11 +65,11 @@ class EcsService
     @ecs_client.update_service({
       cluster: "lifei",
       service: "lifei-service", # required
-      desired_count: 2,
+      desired_count: 1,
       task_definition: "lifei-task",
       deployment_configuration: {
-        maximum_percent: 200,
-        minimum_healthy_percent: 100,
+        maximum_percent: 100,
+        minimum_healthy_percent: 0,
       }
     })
   end
@@ -78,7 +78,7 @@ class EcsService
     @ecs_client.register_task_definition({
       family: 'lifei-task',
       container_definitions: [{
-        memory: 300,
+        memory: 100,
         port_mappings: [
           {
             host_port: 0,
@@ -88,9 +88,24 @@ class EcsService
         ],
         essential: true,
         name: 'nginx',
-        image: 'lifeizhou/oche_web'
+        image: 'lifeizhou/oche_web',
+        links: ['app']
+      },
+      {
+        memory: 300,
+        port_mappings: [
+          {
+            host_port: 0,
+            container_port: 8080,
+            protocol: 'tcp'
+          }
+        ],
+        essential: false,
+        name: 'app',
+        image: 'lifeizhou/oche_app'
       }
       ]
     })
   end
+
 end
