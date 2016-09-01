@@ -74,7 +74,7 @@ class EcsService
   private
 
   def find_target_group_arn_by_name
-    resp = eb2_client.describe_target_groups({names: [@options[:target_group_name]]})
+    resp = elb_client.describe_target_groups({names: [@options[:target_group_name]]})
     resp.target_groups.first.target_group_arn
   end
 
