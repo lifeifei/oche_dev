@@ -1,5 +1,5 @@
 class TaskDefinition
-  def create_task_definition(options)
+  def create_task_definition(options, version)
     {
       family: options[:task_definition][:name],
       container_definitions: [{
@@ -13,7 +13,7 @@ class TaskDefinition
         ],
         essential: true,
         name: options[:essential_container_name],
-        image: 'lifeizhou/oche_web',
+        image: "lifeizhou/oche_web:#{version}",
         links: ['app']
       },
       {
@@ -27,7 +27,7 @@ class TaskDefinition
         ],
         essential: false,
         name: 'app',
-        image: 'lifeizhou/oche_app',
+        image: "lifeizhou/oche_app:#{version}",
         environment: [
           { name: 'ENV_NAME', value: options[:task_definition][:env_name] }
         ]

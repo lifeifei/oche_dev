@@ -6,8 +6,7 @@ namespace :service do
     EcsService.new(args[:env]||'training', args[:version] || 1).deploy
   end
 
-  task :verify do
-    EcsService.new('training', 1).verify_deployed
+  task :verify, [:env, :version] do |_, args|
+    EcsService.new(args[:env], args[:version]).verify_status
   end
-
 end

@@ -30,12 +30,16 @@ class EcsService
     puts "========== finished to deploy version #{@version} to environment: #{@env}"
   end
 
-  def verify_deployed
+  def verify_status
     resp = elb_client.describe_load_balancers(names: [@options[:alb_name]])
     dns = resp.load_balancers.first.dns_name
-    resp = Net::HTTP.get(dns, '/app/oche/result')
-    puts JSON.parse(resp).inspect
-    puts '========== deployment is successful'
+    resp = JSON.parse(Net::HTTP.get(dns, '/app/oche/info'))
+    puts "current deployment is env: #{resp['env']}, version: #{resp['version']}"
+    if (resp['env'] == @env.to_s && resp['version'] == @version)
+      puts 'deployment is successful'
+    else
+      puts 'deployment failed'
+    end
   end
 
   def deploy_finish?(task_definition_arn)
@@ -63,7 +67,7 @@ class EcsService
   end
 
   def register_task_definition
-    resp = @ecs_client.register_task_definition(TaskDefinition.new.create_task_definition(@options))
+    resp = @ecs_client.register_task_definition(TaskDefinition.new.create_task_definition(@options, @version))
     resp.task_definition.task_definition_arn
   end
 
