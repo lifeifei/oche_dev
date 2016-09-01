@@ -1,10 +1,7 @@
-variable "ssh_key_name" {
-  description = "ssh key name for EC2"
-}
 module "oche" {
   source      = "../modules/oche"
   environment = "test"
-  key_name    = "${var.ssh_key_name}"
+  key_name    = "lifei-dev"
   name        = "lifei-test"
   region      = "ap-southeast-2"
   availability_zones = "ap-southeast-2a,ap-southeast-2b"

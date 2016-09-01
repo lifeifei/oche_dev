@@ -21,9 +21,9 @@ $ cd ops
 $ ./provision_get.sh training  # get terraform modules for provision
 $ SSH_KEY_NAME=[ssh_key_pair_name]  ./provision_plan.sh training  # create provision plan
 $ SSH_KEY_NAME=[ssh_key_pair_name]  APPLY=true ./provision_plan.sh training  # apply provision plan
-$ # When above steps finishes, it sets up the resources in AWS including a ECS cluster ready for deploy services
+$ #Also make sure the EC2 instances are up before you move forward (to be improved)
 
-$ ./deploy.sh training 1 # 1 is the build number
+$ ./deploy.sh training 1 # 1 is the build number, it will take about 5 minutes as it will drain the connection from the task first
 $ ./verify.sh training 1 # verify the app is running with the specified build number
 ```
 
@@ -37,3 +37,12 @@ For provision to set up AWS resources, you can change the following files to con
 
 For deployment configuration, you can change the following yaml file
 - https://github.com/lifeifei/oche_dev/blob/master/ops/deploy/config.yml
+
+### Docker Images for Deployment
+Static Contents
+- image url: https://hub.docker.com/r/lifeizhou/oche_web/ 
+- Dockfile: https://github.com/lifeifei/oche_dev/blob/master/src/web/Dockerfile
+
+Application
+- image url: https://hub.docker.com/r/lifeizhou/oche_app/
+- Dockfile: https://github.com/lifeifei/oche_dev/blob/master/src/app/Dockerfile
