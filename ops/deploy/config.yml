@@ -11,7 +11,7 @@
   :essential_container_memory: 200
   :app_container_memory: 300
 
-:training:
+:test:
   <<: *default
   :cluster_name: 'lifei-test'
   :service_name: 'lifei-test-service1'
@@ -23,7 +23,23 @@
   :alb_name: 'lifei-test-alb'
   :task_definition:
     <<: *default_task_definition
+    :env_name: test
+
+
+:training:
+  <<: *default
+  :cluster_name: 'oche-training'
+  :service_name: 'oche-training-service'
+  :ecs_service_role: 'ecs-role-oche-training-training'
+  :maximum_percent: 100
+  :minimum_healthy_percent: 0
+  :desired_count: 1
+  :target_group_name: 'oche-training-alb-tg'
+  :alb_name: 'oche-training-alb'
+  :task_definition:
+    <<: *default_task_definition
     :env_name: training
+    :name: 'oche-training-task'
 
 :prod:
   <<: *default
