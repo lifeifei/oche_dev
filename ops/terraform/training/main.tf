@@ -1,8 +1,11 @@
+variable "ssh_key_name" {
+  description = "ssh key name for EC2"
+}
 module "oche" {
   source      = "../modules/oche"
   environment = "training"
-  key_name    = "oche-dev"
-  name        = "training-test"
+  key_name    = "${var.ssh_key_name}"
+  name        = "oche-training"
   region      = "ap-southeast-2"
   availability_zones = "ap-southeast-2a,ap-southeast-2b"
   internal_subnets = "10.30.0.0/19,10.30.64.0/19"
